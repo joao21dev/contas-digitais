@@ -5,7 +5,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { FindByIdTransactionService } from 'src/app/transaction/use-cases/find-by-id-transaction/find-by-id-transaction.service';
+import { FindByIdTransactionService } from '@app/transaction/usecases/find-by-id-transaction/find-by-id-transaction.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 

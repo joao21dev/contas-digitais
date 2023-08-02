@@ -5,7 +5,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateTransactionService } from 'src/app/transaction/use-cases/create-transaction/create-transaction.service';
+import { CreateTransactionService } from '@app/transaction/usecases/create-transaction/create-transaction.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 import { CreateTransactionDto } from 'src/domain/dtos/transactions/create-transaction.dto';
