@@ -8,7 +8,7 @@ import { makeError } from '@common/functions/make-error';
 import { ErrorLayerKind } from '@common/enums/error-layer.enum';
 
 @Injectable()
-export class MySqlTransactionsRepository {
+export class PostgresTransactionsRepository {
   constructor(
     @InjectRepository(Transaction)
     private readonly transactionRepository: Repository<Transaction>,

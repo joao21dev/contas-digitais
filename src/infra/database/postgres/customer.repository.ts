@@ -10,11 +10,23 @@ import { makeError } from '@common/functions/make-error';
 import { HttpErrorResponse } from '@common/interfaces/http-error-response.interface';
 
 @Injectable()
-export class MySqlCustomersRepository {
+export class PostgresCustomersRepository {
   constructor(
     @InjectRepository(Customer)
     private readonly customerRepository: Repository<Customer>,
   ) {}
+
+  async findAll(): Promise<Customer[] | HttpErrorResponse> {
+    try {
+      return this.customerRepository.find();
+    } catch (error) {
+      return makeError({
+        message: error.message,
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        layer: ErrorLayerKind.REPOSITORY_ERROR,
+      });
+    }
+  }
 
   async create(data: CreateCustomerDto): Promise<Customer | HttpErrorResponse> {
     try {
