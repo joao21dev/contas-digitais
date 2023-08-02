@@ -5,7 +5,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateCustomerService } from 'src/app/customer/usecases/create-customer/create-customer.service';
+import { CreateCustomerService } from 'src/app/customers/usecases/create-customer/create-customer.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 import { CreateCustomerDto } from 'src/domain/dtos/customers/create-customer.dto';
@@ -19,7 +19,6 @@ export class CreateCustomerController {
   @ApiOperation({ summary: 'Criar um cliente' })
   @ApiCreatedResponse({ description: 'Cliente criado com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
-  @Post()
   async execute(@Body() createCustomerDto: CreateCustomerDto) {
     try {
       const result = await this.createCustomerService.execute(

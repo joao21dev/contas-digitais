@@ -5,27 +5,28 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { UpdateCustomerService } from 'src/app/customers/usecases/update-customer/update-customer.service';
+import e from 'express';
+import { UpdateAccountService } from 'src/app/accounts/usecases/update-account/update-account.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
-import { UpdateCustomerDto } from 'src/domain/dtos/customers/update-customer.dto';
+import { UpdateAccountDto } from 'src/domain/dtos/account/update-account.dto';
 
-@ApiTags('clientes')
-@Controller('clientes')
-export class UpdateCustomerController {
-  constructor(private readonly updateCustomerService: UpdateCustomerService) {}
+@ApiTags('contas')
+@Controller('contas')
+export class UpdateAccountController {
+  constructor(private readonly updateAccountService: UpdateAccountService) {}
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Atualizar um cliente' })
-  @ApiOkResponse({ description: 'Cliente atualizado com sucesso' })
+  @ApiOperation({ summary: 'Atualizar uma conta' })
+  @ApiOkResponse({ description: 'Conta atualizada com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
   async execute(
     @Param('id') id: string,
-    @Body() updateCustomerDto: UpdateCustomerDto,
+    @Body() updateAccountDto: UpdateAccountDto,
   ) {
     try {
-      const result = await this.updateCustomerService.execute(
-        updateCustomerDto,
+      const result = await this.updateAccountService.execute(
+        updateAccountDto,
         id,
       );
 
