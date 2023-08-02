@@ -5,7 +5,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { FindByAccountNumberTansactionsService } from 'src/app/transaction/use-cases/find-by-account-number-transactions/find-by-account-number-transactions.service';
+import { FindByAccountNumberTansactionsService } from '@app/transaction/usecases/find-by-account-number-transactions/find-by-account-number-transactions.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 
