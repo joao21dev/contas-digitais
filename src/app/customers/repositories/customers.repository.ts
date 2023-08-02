@@ -4,6 +4,7 @@ import { UpdateCustomerDto } from 'src/domain/dtos/customers/update-customer.dto
 import { Customer } from 'src/domain/entities/customer.entity';
 
 export abstract class CustomersRepository {
+  abstract findAll(): Promise<Customer[]> | HttpErrorResponse;
   abstract create(
     data: CreateCustomerDto,
   ): Promise<Customer> | HttpErrorResponse;

@@ -1,12 +1,20 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
 
+@ApiTags('App') // Define a tag para o controlador de aplicativo
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
+  @ApiOperation({
+    summary: 'Obter mensagem de saudação',
+    description: 'Endpoint para obter a mensagem de saudação "Hello World".',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Mensagem de saudação',
+    type: String,
+  })
   getHello(): string {
-    return this.appService.getHello();
+    return 'Hello World';
   }
 }

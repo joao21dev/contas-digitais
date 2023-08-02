@@ -4,7 +4,7 @@ import entities from '@domain/entities';
 config();
 
 export default new DataSource({
-  type: 'mysql',
+  type: 'postgres',
   host: process.env.DB_HOST,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,

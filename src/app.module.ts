@@ -3,6 +3,7 @@ import { InfraModule } from '@infra/infra.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PresentationModule } from '@presentation/presentation.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -10,7 +11,7 @@ import { PresentationModule } from '@presentation/presentation.module';
     PresentationModule,
     InfraModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}

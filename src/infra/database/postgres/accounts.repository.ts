@@ -9,7 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class MySqlAccountsRepository {
+export class PostgresAccountsRepository {
   constructor(
     @InjectRepository(Account)
     private readonly accountRepository: Repository<Account>,

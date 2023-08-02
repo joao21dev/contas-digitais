@@ -1,14 +1,14 @@
+import { AccountsRepository } from '@app/accounts/repositories/account.repository';
+import { CustomersRepository } from '@app/customers/repositories/customers.repository';
+import { TransactionRepository } from '@app/transaction/repositories/transactions.repository';
 import entities from '@domain/entities';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import databaseConfig from './config/database.config';
+import { PostgresAccountsRepository } from './postgres/accounts.repository';
+import { PostgresCustomersRepository } from './postgres/customer.repository';
+import { PostgresTransactionsRepository } from './postgres/transactions.repository';
 import { DatabaseProvider } from './providers/database.provider';
-import { CustomersRepository } from '@app/customers/repositories/customers.repository';
-import { MySqlCustomersRepository } from './mysql/customer.repository';
-import { AccountsRepository } from '@app/accounts/repositories/account.repository';
-import { MySqlAccountsRepository } from './mysql/accounts.repository';
-import { TransactionRepository } from '@app/transaction/repositories/transactions.repository';
-import { MySqlTransactionsRepository } from './mysql/transactions.repository';
 
 @Module({
   imports: [
@@ -23,15 +23,15 @@ import { MySqlTransactionsRepository } from './mysql/transactions.repository';
     DatabaseProvider,
     {
       provide: CustomersRepository,
-      useClass: MySqlCustomersRepository,
+      useClass: PostgresCustomersRepository,
     },
     {
       provide: AccountsRepository,
-      useClass: MySqlAccountsRepository,
+      useClass: PostgresAccountsRepository,
     },
     {
       provide: TransactionRepository,
-      useClass: MySqlTransactionsRepository,
+      useClass: PostgresTransactionsRepository,
     },
   ],
   exports: [CustomersRepository, AccountsRepository, TransactionRepository],
