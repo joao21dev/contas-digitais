@@ -5,7 +5,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { FindByCustomerIdAccountService } from 'src/app/accounts/usecases/find-by-customer-id-account/find-by-customer-id-account.service';
+import { FindByCustomerIdAccountsService } from 'src/app/accounts/usecases/find-by-customer-id-accounts/find-by-customer-id-accounts.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 
@@ -13,7 +13,7 @@ import { makeError } from 'src/common/functions/make-error';
 @Controller('contas')
 export class FindByCustomerIdAccountController {
   constructor(
-    private readonly findByCustomerIdAccountService: FindByCustomerIdAccountService,
+    private readonly findByCustomerIdAccountsService: FindByCustomerIdAccountsService,
   ) {}
 
   @Get('cliente/:customer_id')
@@ -22,7 +22,7 @@ export class FindByCustomerIdAccountController {
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
   async execute(@Param('customer_id') customer_id: string) {
     try {
-      const result = await this.findByCustomerIdAccountService.execute(
+      const result = await this.findByCustomerIdAccountsService.execute(
         customer_id,
       );
 

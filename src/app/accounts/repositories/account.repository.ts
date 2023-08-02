@@ -11,7 +11,7 @@ export abstract class AccountsRepository {
   }): Promise<Account> | HttpErrorResponse;
   abstract findById(data: { id: string }): Promise<Account> | HttpErrorResponse;
   abstract findByAccountNumber(data: {
-    account_number: string;
+    account_number: number;
   }): Promise<Account> | HttpErrorResponse;
   abstract findByCustomerId(data: {
     customer_id: string;
