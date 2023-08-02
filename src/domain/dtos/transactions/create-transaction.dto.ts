@@ -1,24 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreateAccountDto {
+export class CreateTransactionDto {
   @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
-  account_number: number;
+  account_number: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  customer_id: string;
+  transactionType: string;
 
   @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
-  balance: number;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  accountType: string;
+  amount: number;
 }

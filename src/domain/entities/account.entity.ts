@@ -6,7 +6,7 @@ import { Transaction } from './transaction.entity';
 @Entity()
 export class Account extends Base {
   @Column()
-  account_number: string;
+  account_number: number;
 
   @ManyToOne(() => Customer, (customer) => customer.accounts)
   @JoinColumn({ name: 'customer_id' })
