@@ -15,6 +15,9 @@ export class Account extends Base {
   @Column()
   balance: number;
 
-  @OneToMany(() => Transaction, (transaction) => transaction.account_number)
+  @OneToMany(
+    () => Transaction,
+    (transaction) => transaction.destination_account,
+  )
   transactions: Transaction[];
 }

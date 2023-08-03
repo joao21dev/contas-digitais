@@ -20,10 +20,10 @@ export class PostgresTransactionsRepository {
 
   async create(data: CreateTransactionDto): Promise<any> {
     try {
-      const { account_number, type, amount } = data;
+      const { destination_account, type, amount } = data;
 
       const destinationAccount = await this.accountRepository.findOne({
-        where: { account_number },
+        where: { account_number: destination_account },
       });
 
       if (!destinationAccount) {
@@ -59,11 +59,17 @@ export class PostgresTransactionsRepository {
         };
       }
 
-      const order = await this.transactionRepository.save({
-        account_number,
+      const order = this.transactionRepository.create({
+        destination_account: destinationAccount.account_number,
         type,
         amount,
       });
+      console.log(
+        '🚀 ~ file: transactions.repository.ts:67 ~ PostgresTransactionsRepository ~ create ~ order:',
+        order,
+      );
+
+      await this.transactionRepository.save(order);
 
       await this.accountRepository.save(destinationAccount);
 

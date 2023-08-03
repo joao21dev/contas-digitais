@@ -5,8 +5,8 @@ import { Base } from './base.entity';
 @Entity()
 export class Transaction extends Base {
   @ManyToOne(() => Account, (account) => account.transactions)
-  @JoinColumn({ name: 'account_number' })
-  account_number: number; // Renomeando o atributo para refletir o novo relacionamento
+  @JoinColumn({ name: 'destination_account' })
+  destination_account: number;
 
   @Column()
   type: string;

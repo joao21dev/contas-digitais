@@ -5,7 +5,7 @@ export class CreateTransactionDto {
   @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
-  account_number: number;
+  destination_account: number;
 
   @ApiProperty()
   @IsString()
