@@ -1,5 +1,5 @@
 import { PostgresAccountsRepository } from './accounts.repository';
-import { PostgresCustomersRepository } from './customer.repository';
+import { PostgresCustomersRepository } from './customers.repository';
 import { PostgresTransactionsRepository } from './transactions.repository';
 
 export default [
