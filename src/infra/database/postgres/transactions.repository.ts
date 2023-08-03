@@ -20,7 +20,7 @@ export class PostgresTransactionsRepository {
 
   async create(data: CreateTransactionDto): Promise<any> {
     try {
-      const { account_number } = data;
+      const { account_number, type, amount } = data;
 
       const destinationAccount = await this.accountRepository.findOne({
         where: { account_number },
@@ -59,21 +59,22 @@ export class PostgresTransactionsRepository {
         };
       }
 
-      const transaction = await this.transactionRepository.save({
+      const order = await this.transactionRepository.save({
         account_number,
-        type: data.type,
-        amount: data.amount,
+        type,
+        amount,
       });
 
       await this.accountRepository.save(destinationAccount);
 
       return {
-        data: transaction,
+        order,
+        destinationAccount,
       };
     } catch (error) {
       return {
         error: {
-          message: 'Error creating transaction',
+          message: 'Error creating data',
           status: HttpStatus.INTERNAL_SERVER_ERROR,
           layer: 'SERVICE_ERROR',
         },
