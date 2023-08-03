@@ -9,14 +9,14 @@ import { FindByAccountNumberTansactionsService } from '@app/transaction/usecases
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 
-@Controller('transacoes')
 @ApiTags('transacoes')
+@Controller('transacoes')
 export class FindByAccountNumberTransactionsController {
   constructor(
     private readonly findByAccountNumberTansactionsService: FindByAccountNumberTansactionsService,
   ) {}
 
-  @Get('account-number')
+  @Get('numero-conta/:account_number')
   @ApiOperation({ summary: 'Buscar transações por número de conta' })
   @ApiOkResponse({ description: 'Transações encontradas com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })

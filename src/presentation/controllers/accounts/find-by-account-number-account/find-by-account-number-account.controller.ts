@@ -16,7 +16,7 @@ export class FindByAccountNumberAccountController {
     private readonly findByAccountNumberAccountService: FindByAccountNumberAccountService,
   ) {}
 
-  @Get(':account_number')
+  @Get('/numero/:account_number')
   @ApiOperation({ summary: 'Buscar uma conta pelo número da conta' })
   @ApiCreatedResponse({ description: 'Conta encontrada com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })

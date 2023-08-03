@@ -85,7 +85,23 @@ export class PostgresAccountsRepository {
         });
       }
 
-      this.accountRepository.merge(accountToUpdate, updateData);
+      const allowedAttributes = ['account_number'];
+      const invalidAttributes = Object.keys(updateData).filter(
+        (attribute) => !allowedAttributes.includes(attribute),
+      );
+
+      if (invalidAttributes.length > 0) {
+        return makeError({
+          message: `Somente o account_number pode ser alterado. Atributos invalidos: ${invalidAttributes.join(
+            ', ',
+          )}`,
+          status: HttpStatus.BAD_REQUEST,
+          layer: ErrorLayerKind.REPOSITORY_ERROR,
+        });
+      }
+
+      accountToUpdate.account_number = updateData.account_number;
+
       return this.accountRepository.save(accountToUpdate);
     } catch (error) {
       return makeError({
