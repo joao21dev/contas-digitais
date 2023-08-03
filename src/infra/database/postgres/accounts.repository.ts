@@ -144,10 +144,18 @@ export class PostgresAccountsRepository {
   }): Promise<HttpErrorResponse | Account[]> {
     try {
       const { customer_id } = data;
+
       const accounts = await this.accountRepository.find({
-        relations: ['customer'],
         where: { customer_info: { id: customer_id } },
       });
+
+      if (!accounts) {
+        return makeError({
+          message: 'Account not found',
+          status: HttpStatus.NOT_FOUND,
+          layer: ErrorLayerKind.REPOSITORY_ERROR,
+        });
+      }
 
       return accounts;
     } catch (error) {
