@@ -5,7 +5,7 @@ import { Transaction } from './transaction.entity';
 
 @Entity()
 export class Account extends Base {
-  @Column()
+  @Column({ unique: true })
   account_number: number;
 
   @ManyToOne(() => Customer, (customer) => customer.accounts)
@@ -15,6 +15,6 @@ export class Account extends Base {
   @Column()
   balance: number;
 
-  @OneToMany(() => Transaction, (transaction) => transaction.account)
+  @OneToMany(() => Transaction, (transaction) => transaction.account_number)
   transactions: Transaction[];
 }

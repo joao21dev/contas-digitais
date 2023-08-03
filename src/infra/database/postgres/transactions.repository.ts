@@ -7,8 +7,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { makeError } from '@common/functions/make-error';
 import { ErrorLayerKind } from '@common/enums/error-layer.enum';
 import { Account } from '@domain/entities/account.entity';
-import transactions from '@presentation/controllers/transactions';
-import { async } from 'rxjs';
 
 @Injectable()
 export class PostgresTransactionsRepository {
@@ -19,59 +17,67 @@ export class PostgresTransactionsRepository {
     @InjectRepository(Account)
     private readonly accountRepository: Repository<Account>,
   ) {}
+
   async create(data: CreateTransactionDto): Promise<any> {
     try {
-      // Find the destination account based on the account_number
       const { account_number } = data;
 
       const destinationAccount = await this.accountRepository.findOne({
-        where: { account_number: account_number },
+        where: { account_number },
       });
+
       if (!destinationAccount) {
-        return makeError({
-          message: 'Destination account not found',
-          status: HttpStatus.BAD_REQUEST,
-          layer: ErrorLayerKind.SERVICE_ERROR,
-        });
+        return {
+          error: {
+            message: 'Destination account not found',
+            status: HttpStatus.BAD_REQUEST,
+            layer: 'SERVICE_ERROR',
+          },
+        };
       }
 
-      // Determine the transaction type (withdraw or deposit) and update the balance accordingly
       if (data.type === 'withdraw') {
         if (destinationAccount.balance < data.amount) {
-          return makeError({
-            message: 'Insufficient balance for withdrawal',
-            status: HttpStatus.BAD_REQUEST,
-            layer: ErrorLayerKind.SERVICE_ERROR,
-          });
+          return {
+            error: {
+              message: 'Insufficient balance for withdrawal',
+              status: HttpStatus.BAD_REQUEST,
+              layer: 'SERVICE_ERROR',
+            },
+          };
         }
         destinationAccount.balance -= data.amount;
       } else if (data.type === 'deposit') {
         destinationAccount.balance += data.amount;
       } else {
-        return makeError({
-          message: 'Invalid transaction type',
-          status: HttpStatus.BAD_REQUEST,
-          layer: ErrorLayerKind.SERVICE_ERROR,
-        });
+        return {
+          error: {
+            message: 'Invalid transaction type',
+            status: HttpStatus.BAD_REQUEST,
+            layer: 'SERVICE_ERROR',
+          },
+        };
       }
 
-      // Save the updated balance to the destination account
+      const transaction = await this.transactionRepository.save({
+        account_number,
+        type: data.type,
+        amount: data.amount,
+      });
+
       await this.accountRepository.save(destinationAccount);
 
-      // Create the new transaction object
-      const newTransaction = new Transaction();
-      newTransaction.account = destinationAccount;
-      newTransaction.type = data.type;
-      newTransaction.amount = data.amount;
-
-      // Save the new transaction to the database
-      return this.transactionRepository.save(newTransaction);
+      return {
+        data: transaction,
+      };
     } catch (error) {
-      return makeError({
-        message: error.message,
-        status: HttpStatus.INTERNAL_SERVER_ERROR,
-        layer: ErrorLayerKind.REPOSITORY_ERROR,
-      });
+      return {
+        error: {
+          message: 'Error creating transaction',
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          layer: 'SERVICE_ERROR',
+        },
+      };
     }
   }
 
@@ -103,12 +109,12 @@ export class PostgresTransactionsRepository {
   async findByAccountNumber(data: { account_number: number }): Promise<any> {
     try {
       const { account_number } = data;
-      const transactions = await this.transactionRepository.find({
-        relations: ['account'],
-        where: { account: { account_number } },
-      });
+      // const transactions = await this.transactionRepository.find({
+      //   relations: ['account'],
+      //   where: { account: { account_number } },
+      // });
 
-      return transactions;
+      return 'teste';
     } catch (error) {
       return makeError({
         message: error.message,
