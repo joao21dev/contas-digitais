@@ -4,8 +4,11 @@ import { HttpErrorResponse } from '@common/interfaces/http-error-response.interf
 import { CreateAccountDto } from '@domain/dtos/account/cerate-account.dto';
 import { UpdateAccountDto } from '@domain/dtos/account/update-account.dto';
 import { Account } from '@domain/entities/account.entity';
+import { Customer } from '@domain/entities/customer.entity';
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import accounts from '@presentation/controllers/accounts';
+import { async } from 'rxjs';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -13,11 +16,38 @@ export class PostgresAccountsRepository {
   constructor(
     @InjectRepository(Account)
     private readonly accountRepository: Repository<Account>,
+    @InjectRepository(Customer)
+    private readonly customerRepository: Repository<Customer>,
   ) {}
+
+  private generateRandomAccountNumber(): number {
+    return Math.floor(10000 + Math.random() * 90000); // Random 5-digit number
+  }
 
   async create(data: CreateAccountDto): Promise<HttpErrorResponse | Account> {
     try {
-      const newAccount = this.accountRepository.create(data);
+      // Find the customer with the provided customer_id
+      const customer = await this.customerRepository.findOne({
+        where: { id: data.customer_id },
+      });
+      if (!customer) {
+        return makeError({
+          message: 'Customer not found',
+          status: HttpStatus.BAD_REQUEST,
+          layer: ErrorLayerKind.SERVICE_ERROR,
+        });
+      }
+
+      // Generate a random 5-digit account number
+      const accountNumber = this.generateRandomAccountNumber();
+
+      // Create the new account object
+      const newAccount = new Account();
+      newAccount.account_number = accountNumber;
+      newAccount.customer_info = customer;
+      newAccount.balance = 0;
+
+      // Save the new account to the database
       return this.accountRepository.save(newAccount);
     } catch (error) {
       return makeError({
@@ -116,7 +146,7 @@ export class PostgresAccountsRepository {
       const { customer_id } = data;
       const accounts = await this.accountRepository.find({
         relations: ['customer'],
-        where: { customer: { id: customer_id } },
+        where: { customer_info: { id: customer_id } },
       });
 
       return accounts;

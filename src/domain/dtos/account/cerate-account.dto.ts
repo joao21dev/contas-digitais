@@ -4,7 +4,6 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class CreateAccountDto {
   @ApiProperty()
   @IsNumber()
-  @IsNotEmpty()
   account_number: number;
 
   @ApiProperty()
@@ -14,11 +13,5 @@ export class CreateAccountDto {
 
   @ApiProperty()
   @IsNumber()
-  @IsNotEmpty()
   balance: number;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  accountType: string;
 }

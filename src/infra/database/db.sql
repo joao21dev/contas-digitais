@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS Account (
   account_number integer NOT NULL,
   customer_id integer NOT NULL,
   balance numeric NOT NULL,
-  account_type varchar(255) NOT NULL,
   deleted_at timestamp(6) NULL, 
   created_at timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),

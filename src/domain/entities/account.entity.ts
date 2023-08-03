@@ -10,13 +10,10 @@ export class Account extends Base {
 
   @ManyToOne(() => Customer, (customer) => customer.accounts)
   @JoinColumn({ name: 'customer_id' })
-  customer: Customer;
+  customer_info: Customer;
 
   @Column()
   balance: number;
-
-  @Column()
-  accountType: string;
 
   @OneToMany(() => Transaction, (transaction) => transaction.account)
   transactions: Transaction[];
