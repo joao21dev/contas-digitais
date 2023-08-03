@@ -26,15 +26,24 @@ export class PostgresAccountsRepository {
 
   async create(data: CreateAccountDto): Promise<HttpErrorResponse | Account> {
     try {
+      if (data.customer_id === undefined) {
+        return makeError({
+          message: 'Customer ID is required',
+          status: HttpStatus.BAD_REQUEST,
+          layer: ErrorLayerKind.REPOSITORY_ERROR,
+        });
+      }
+
       // Find the customer with the provided customer_id
       const customer = await this.customerRepository.findOne({
         where: { id: data.customer_id },
       });
+
       if (!customer) {
         return makeError({
           message: 'Customer not found',
-          status: HttpStatus.BAD_REQUEST,
-          layer: ErrorLayerKind.SERVICE_ERROR,
+          status: HttpStatus.NOT_FOUND,
+          layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
       }
 
@@ -44,7 +53,7 @@ export class PostgresAccountsRepository {
       // Create the new account object
       const newAccount = new Account();
       newAccount.account_number = accountNumber;
-      newAccount.customer_info = customer;
+      newAccount.customer = customer;
       newAccount.balance = 0;
 
       // Save the new account to the database
@@ -146,7 +155,7 @@ export class PostgresAccountsRepository {
       const { customer_id } = data;
 
       const accounts = await this.accountRepository.find({
-        where: { customer_info: { id: customer_id } },
+        where: { customer: { id: customer_id } },
       });
 
       if (!accounts) {

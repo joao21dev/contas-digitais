@@ -17,7 +17,10 @@ CREATE TABLE IF NOT EXISTS Account (
   deleted_at timestamp(6) NULL, 
   created_at timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  CONSTRAINT uk_account_account_number UNIQUE (account_number)
+  CONSTRAINT uk_account_account_number UNIQUE (account_number),
+    CONSTRAINT fk_customer
+    FOREIGN KEY (customer_id)
+    REFERENCES Customer (id)
 );
 
 CREATE TABLE IF NOT EXISTS Transaction (
@@ -33,7 +36,3 @@ CREATE TABLE IF NOT EXISTS Transaction (
   REFERENCES Account (account_number) 
 );
 
-ALTER TABLE Account
-ADD CONSTRAINT fk_customer
-FOREIGN KEY (customer_id)
-REFERENCES Customer (id);

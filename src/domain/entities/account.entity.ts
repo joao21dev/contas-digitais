@@ -10,7 +10,7 @@ export class Account extends Base {
 
   @ManyToOne(() => Customer, (customer) => customer.accounts)
   @JoinColumn({ name: 'customer_id' })
-  customer_info: Customer;
+  customer: Customer;
 
   @Column()
   balance: number;

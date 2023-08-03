@@ -16,6 +16,6 @@ export class Customer extends Base {
   @Column()
   email: string;
 
-  @OneToMany(() => Account, (account) => account.customer_info)
+  @OneToMany(() => Account, (account) => account.customer)
   accounts: Account[];
 }
