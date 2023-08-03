@@ -6,17 +6,65 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { makeError } from '@common/functions/make-error';
 import { ErrorLayerKind } from '@common/enums/error-layer.enum';
+import { Account } from '@domain/entities/account.entity';
+import transactions from '@presentation/controllers/transactions';
+import { async } from 'rxjs';
 
 @Injectable()
 export class PostgresTransactionsRepository {
   constructor(
     @InjectRepository(Transaction)
     private readonly transactionRepository: Repository<Transaction>,
-  ) {}
 
+    @InjectRepository(Account)
+    private readonly accountRepository: Repository<Account>,
+  ) {}
   async create(data: CreateTransactionDto): Promise<any> {
     try {
-      const newTransaction = this.transactionRepository.create(data);
+      // Find the destination account based on the account_number
+      const { account_number } = data;
+
+      const destinationAccount = await this.accountRepository.findOne({
+        where: { account_number: account_number },
+      });
+      if (!destinationAccount) {
+        return makeError({
+          message: 'Destination account not found',
+          status: HttpStatus.BAD_REQUEST,
+          layer: ErrorLayerKind.SERVICE_ERROR,
+        });
+      }
+
+      // Determine the transaction type (withdraw or deposit) and update the balance accordingly
+      if (data.type === 'withdraw') {
+        if (destinationAccount.balance < data.amount) {
+          return makeError({
+            message: 'Insufficient balance for withdrawal',
+            status: HttpStatus.BAD_REQUEST,
+            layer: ErrorLayerKind.SERVICE_ERROR,
+          });
+        }
+        destinationAccount.balance -= data.amount;
+      } else if (data.type === 'deposit') {
+        destinationAccount.balance += data.amount;
+      } else {
+        return makeError({
+          message: 'Invalid transaction type',
+          status: HttpStatus.BAD_REQUEST,
+          layer: ErrorLayerKind.SERVICE_ERROR,
+        });
+      }
+
+      // Save the updated balance to the destination account
+      await this.accountRepository.save(destinationAccount);
+
+      // Create the new transaction object
+      const newTransaction = new Transaction();
+      newTransaction.account = destinationAccount;
+      newTransaction.type = data.type;
+      newTransaction.amount = data.amount;
+
+      // Save the new transaction to the database
       return this.transactionRepository.save(newTransaction);
     } catch (error) {
       return makeError({

@@ -9,7 +9,7 @@ export class Transaction extends Base {
   account: Account;
 
   @Column()
-  transactionType: string;
+  type: string;
 
   @Column()
   amount: number;
