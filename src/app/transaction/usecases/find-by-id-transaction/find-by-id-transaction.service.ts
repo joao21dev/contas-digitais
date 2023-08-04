@@ -1,8 +1,7 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { CreateTransactionService } from '../create-transaction/create-transaction.service';
-import { makeError } from 'src/common/functions/make-error';
-import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
-import { TransactionRepository } from '../../repositories/transactions.repository';
+import { TransactionRepository } from '@app/transaction/repositories/transactions.repository';
+import { ErrorLayerKind } from '@common/enums/error-layer.enum';
+import { makeError } from '@common/functions/make-error';
+import { Injectable, HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class FindByIdTransactionService {

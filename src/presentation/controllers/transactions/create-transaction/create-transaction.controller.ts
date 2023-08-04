@@ -1,16 +1,14 @@
 import { Controller, Post, Body, HttpStatus } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiCreatedResponse,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateTransactionService } from '@app/transaction/usecases/create-transaction/create-transaction.service';
-import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
-import { makeError } from 'src/common/functions/make-error';
-import { CreateTransactionDto } from 'src/domain/dtos/transactions/create-transaction.dto';
-import { CustomerSuccessDoc } from '@common/docs/customers/customer-success.doc';
+import { ErrorLayerKind } from '@common/enums/error-layer.enum';
+import { makeError } from '@common/functions/make-error';
+import { CreateTransactionDto } from '@domain/dtos/transactions/create-transaction.dto';
 import { BadRequestDoc } from '@common/docs/bad-request.doc';
 import { TransactionSuccessDoc } from '@common/docs/transactions/transaction-success.doc';
 

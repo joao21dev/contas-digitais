@@ -1,8 +1,8 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { CreateCustomerDto } from 'src/domain/dtos/customers/create-customer.dto';
-import { CustomersRepository } from '../../repositories/customers.repository';
-import { makeError } from 'src/common/functions/make-error';
-import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
+import { CustomersRepository } from '@app/customers/repositories/customers.repository';
+import { ErrorLayerKind } from '@common/enums/error-layer.enum';
+import { makeError } from '@common/functions/make-error';
+import { CreateCustomerDto } from '@domain/dtos/customers/create-customer.dto';
+import { Injectable, HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class CreateCustomerService {

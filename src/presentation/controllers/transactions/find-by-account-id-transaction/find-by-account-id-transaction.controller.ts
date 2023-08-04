@@ -11,8 +11,8 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
-import { makeError } from 'src/common/functions/make-error';
+import { ErrorLayerKind } from '@common/enums/error-layer.enum';
+import { makeError } from '@common/functions/make-error';
 
 @ApiTags('transacoes')
 @Controller('transacoes')

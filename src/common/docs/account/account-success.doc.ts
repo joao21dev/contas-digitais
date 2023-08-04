@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CustomerSuccessDoc } from '../customers/customer-success.doc';
 import { IsNumber } from 'class-validator';
+import { CustomerSuccessDoc } from '../customers/customer-success.doc';
 
 export class AccountSuccessDoc {
   @ApiProperty({ example: '24343' })

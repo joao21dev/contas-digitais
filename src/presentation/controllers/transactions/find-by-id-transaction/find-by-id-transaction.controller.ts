@@ -8,8 +8,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { FindByIdTransactionService } from '@app/transaction/usecases/find-by-id-transaction/find-by-id-transaction.service';
-import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
-import { makeError } from 'src/common/functions/make-error';
+import { ErrorLayerKind } from '@common/enums/error-layer.enum';
+import { makeError } from '@common/functions/make-error';
 import { TransactionSuccessDoc } from '@common/docs/transactions/transaction-success.doc';
 import { BadRequestDoc } from '@common/docs/bad-request.doc';
 import { TransactionsNotFoundDoc } from '@common/docs/transactions/transactions-not-found.doc';

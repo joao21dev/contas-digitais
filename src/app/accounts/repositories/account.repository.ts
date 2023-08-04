@@ -1,7 +1,7 @@
+import { HttpErrorResponse } from '@common/interfaces/http-error-response.interface';
 import { CreateAccountDto } from '@domain/dtos/account/create-account.dto';
-import { HttpErrorResponse } from 'src/common/interfaces/http-error-response.interface';
-import { UpdateAccountDto } from 'src/domain/dtos/account/update-account.dto';
-import { Account } from 'src/domain/entities/account.entity';
+import { UpdateAccountDto } from '@domain/dtos/account/update-account.dto';
+import { Account } from '@domain/entities/account.entity';
 
 export abstract class AccountsRepository {
   abstract create(data: CreateAccountDto): Promise<Account> | HttpErrorResponse;

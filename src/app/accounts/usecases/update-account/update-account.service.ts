@@ -1,8 +1,8 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
-import { makeError } from 'src/common/functions/make-error';
-import { UpdateAccountDto } from 'src/domain/dtos/account/update-account.dto';
-import { AccountsRepository } from '../../repositories/account.repository';
+import { AccountsRepository } from '@app/accounts/repositories/account.repository';
+import { ErrorLayerKind } from '@common/enums/error-layer.enum';
+import { makeError } from '@common/functions/make-error';
+import { UpdateAccountDto } from '@domain/dtos/account/update-account.dto';
+import { Injectable, HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class UpdateAccountService {

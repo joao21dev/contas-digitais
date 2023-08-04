@@ -4,7 +4,6 @@ import { CreateAccountDto } from '@domain/dtos/account/create-account.dto';
 import { Controller, Post, Body, HttpStatus } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiCreatedResponse,
   ApiOperation,
   ApiResponse,
   ApiTags,

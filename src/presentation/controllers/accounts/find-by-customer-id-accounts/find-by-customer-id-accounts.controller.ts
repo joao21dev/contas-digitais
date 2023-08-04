@@ -1,7 +1,6 @@
 import { AccountNotFoundDoc } from '@common/docs/account/account-not-found.doc';
 import { AccountSuccessDoc } from '@common/docs/account/account-success.doc';
 import { BadRequestDoc } from '@common/docs/bad-request.doc';
-import { CustomerNotFoundDoc } from '@common/docs/customers/customer-not-found.doc';
 import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import {
   ApiBadRequestResponse,

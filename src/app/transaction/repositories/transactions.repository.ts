@@ -1,6 +1,6 @@
-import { HttpErrorResponse } from 'src/common/interfaces/http-error-response.interface';
-import { CreateTransactionDto } from 'src/domain/dtos/transactions/create-transaction.dto';
-import { Transaction } from 'src/domain/entities/transaction.entity';
+import { HttpErrorResponse } from '@common/interfaces/http-error-response.interface';
+import { CreateTransactionDto } from '@domain/dtos/transactions/create-transaction.dto';
+import { Transaction } from '@domain/entities/transaction.entity';
 
 export abstract class TransactionRepository {
   abstract create(
