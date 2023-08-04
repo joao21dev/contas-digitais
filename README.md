@@ -36,10 +36,10 @@ Para este projeto, serão entregues os seguintes artefatos:
 
 ### API
 
-A API foi desenvolvida para fornecer os seguintes casos de uso:
+A api foi desenvolvida para fornecer os seguintes casos de uso:
 
 - Cadastrar clientes e criar contas utilizando uma chave estrangeira para referenciar o cliente. Atualizar dados das contas e dos clientes. Consultar Contas pertencentes a um determinado cliente. Cadastrar transações de saque ou depósito utilizando uma chave estrangeira para referencia a conta que fez determinada transação. Consultar lista de transações efetuadas a partir de uma determinada conta.
-- A API foi desenvolvida seguindo os princípios da Arquitetura Limpa, que enfatiza a separação de responsabilidades em camadas distintas. A estrutura adotada inclui a camada de Domínio, onde as regras de negócios e entidades são definidas; a camada de Casos de Uso (App), que contém a lógica específica da aplicação; a camada de Infraestrutura, cuidando de aspectos técnicos como banco de dados; a camada Presentation responsável por gerenciar a interação com o usuário através dos controllers. A Inversão de Dependência foi empregada, assegurando que camadas superiores dependam de abstrações e não de detalhes de implementação, aumentando o desacoplamento e a testabilidade (futura, pois não deu tempo de escrever os testes dos casos de uso). A utilização do NestJS e TypeScript fortaleceu essa arquitetura, resultando em uma API modular, de fácil manutenção e escalável. As ferramentas empregadas, como o TypeORM para a persistência de dados e o Swagger para documentação.
+- A api foi desenvolvida seguindo os princípios da Arquitetura Limpa, que enfatiza a separação de responsabilidades em camadas distintas. A estrutura adotada inclui a camada de Domínio, onde as regras de negócios e entidades são definidas; a camada de Casos de Uso (App), que contém a lógica específica da aplicação; a camada de Infraestrutura, cuidando de aspectos técnicos como banco de dados; a camada Presentation responsável por gerenciar a interação com o usuário através dos controllers. A Inversão de Dependência foi empregada, assegurando que camadas superiores dependam de abstrações e não de detalhes de implementação, aumentando o desacoplamento e a testabilidade (futura, pois não deu tempo de escrever os testes dos casos de uso). A utilização do NestJS e TypeScript fortaleceu essa arquitetura, resultando em uma API modular, de fácil manutenção e escalável. As ferramentas empregadas, como o TypeORM para a persistência de dados e o Swagger para documentação.
 
 ### Testes
 
