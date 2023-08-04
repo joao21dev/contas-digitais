@@ -10,9 +10,9 @@ export abstract class CustomersRepository {
   ): Promise<Customer> | HttpErrorResponse;
   abstract update(data: {
     data: UpdateCustomerDto;
-    id: string;
+    customer_id: number;
   }): Promise<Customer> | HttpErrorResponse;
-  abstract findById(data: {
-    id: string;
+  abstract findByCustomerId(data: {
+    customer_id: number;
   }): Promise<Customer> | HttpErrorResponse;
 }

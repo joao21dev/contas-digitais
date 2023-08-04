@@ -1,16 +1,21 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Account } from './account.entity';
-import { Base } from './base.entity';
 
 @Entity()
-export class Transaction extends Base {
-  @ManyToOne(() => Account, (account) => account.transactions)
-  @JoinColumn({ name: 'destination_account' })
-  destination_account: number;
+export class Transaction {
+  @PrimaryGeneratedColumn()
+  transaction_id: number;
 
   @Column()
-  type: string;
+  account_id: number;
 
-  @Column()
+  @Column('decimal', { precision: 10, scale: 2 })
   amount: number;
+
+  @Column({ length: 10 })
+  transaction_type: string;
+
+  // Relação com a entidade "Account"
+  @ManyToOne(() => Account, (account) => account.transactions)
+  account: Account;
 }

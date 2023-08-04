@@ -20,10 +20,10 @@ export class PostgresTransactionsRepository {
 
   async create(data: CreateTransactionDto): Promise<any> {
     try {
-      const { destination_account, type, amount } = data;
+      const { account_id, transaction_type, amount } = data;
 
       const destinationAccount = await this.accountRepository.findOne({
-        where: { account_number: destination_account },
+        where: { account_id: account_id },
       });
 
       if (!destinationAccount) {
@@ -36,7 +36,7 @@ export class PostgresTransactionsRepository {
         };
       }
 
-      if (data.type === 'withdraw') {
+      if (data.transaction_type === 'withdraw') {
         if (destinationAccount.balance < data.amount) {
           return {
             error: {
@@ -47,7 +47,7 @@ export class PostgresTransactionsRepository {
           };
         }
         destinationAccount.balance -= data.amount;
-      } else if (data.type === 'deposit') {
+      } else if (data.transaction_type === 'deposit') {
         destinationAccount.balance += data.amount;
       } else {
         return {
@@ -59,22 +59,18 @@ export class PostgresTransactionsRepository {
         };
       }
 
-      const order = this.transactionRepository.create({
-        destination_account: destinationAccount.account_number,
-        type,
-        amount,
-      });
-      console.log(
-        '🚀 ~ file: transactions.repository.ts:67 ~ PostgresTransactionsRepository ~ create ~ order:',
-        order,
-      );
+      // const order = this.transactionRepository.create({
+      //   account_id: destinationAccount.account_id,
+      //   type,
+      //   amount,
+      // });
 
-      await this.transactionRepository.save(order);
+      // await this.transactionRepository.save(order);
 
       await this.accountRepository.save(destinationAccount);
 
       return {
-        order,
+        // order,
         destinationAccount,
       };
     } catch (error) {
@@ -88,12 +84,10 @@ export class PostgresTransactionsRepository {
     }
   }
 
-  async findById(data: { id: string }): Promise<any> {
+  async findById(data: { id: number }): Promise<any> {
     try {
       const { id } = data;
-      const transaction = await this.transactionRepository.findOne({
-        where: { id },
-      });
+      const transaction = await this.transactionRepository.findOne({});
 
       if (!transaction) {
         return makeError({

@@ -1,14 +1,12 @@
 import { ErrorLayerKind } from '@common/enums/error-layer.enum';
 import { makeError } from '@common/functions/make-error';
 import { HttpErrorResponse } from '@common/interfaces/http-error-response.interface';
-import { CreateAccountDto } from '@domain/dtos/account/cerate-account.dto';
+import { CreateAccountDto } from '@domain/dtos/account/create-account.dto';
 import { UpdateAccountDto } from '@domain/dtos/account/update-account.dto';
 import { Account } from '@domain/entities/account.entity';
 import { Customer } from '@domain/entities/customer.entity';
 import { Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import accounts from '@presentation/controllers/accounts';
-import { async } from 'rxjs';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -26,17 +24,10 @@ export class PostgresAccountsRepository {
 
   async create(data: CreateAccountDto): Promise<HttpErrorResponse | Account> {
     try {
-      if (data.customer_id === undefined) {
-        return makeError({
-          message: 'Customer ID is required',
-          status: HttpStatus.BAD_REQUEST,
-          layer: ErrorLayerKind.REPOSITORY_ERROR,
-        });
-      }
+      const { customer_id } = data;
 
-      // Find the customer with the provided customer_id
       const customer = await this.customerRepository.findOne({
-        where: { id: data.customer_id },
+        where: { customer_id: customer_id },
       });
 
       if (!customer) {
@@ -47,17 +38,18 @@ export class PostgresAccountsRepository {
         });
       }
 
-      // Generate a random 5-digit account number
-      const accountNumber = this.generateRandomAccountNumber();
+      const account_id = this.generateRandomAccountNumber();
 
-      // Create the new account object
       const newAccount = new Account();
-      newAccount.account_number = accountNumber;
-      newAccount.customer = customer;
-      newAccount.balance = 0;
 
-      // Save the new account to the database
-      return this.accountRepository.save(newAccount);
+      newAccount.account_id = account_id;
+      newAccount.customer_id = customer_id;
+      newAccount.balance = 0;
+      newAccount.customer = customer;
+
+      this.accountRepository.save(newAccount);
+
+      return newAccount;
     } catch (error) {
       return makeError({
         message: error.message,
@@ -69,12 +61,13 @@ export class PostgresAccountsRepository {
 
   async update(data: {
     data: UpdateAccountDto;
-    id: string;
+    account_id: number;
   }): Promise<HttpErrorResponse | Account> {
     try {
-      const { id, data: updateData } = data;
+      const { account_id, data: updateData } = data; // Ajuste na desestruturação aqui
+
       const accountToUpdate = await this.accountRepository.findOne({
-        where: { id },
+        where: { account_id },
       });
 
       if (!accountToUpdate) {
@@ -85,7 +78,7 @@ export class PostgresAccountsRepository {
         });
       }
 
-      const allowedAttributes = ['account_number'];
+      const allowedAttributes = ['account_id'];
       const invalidAttributes = Object.keys(updateData).filter(
         (attribute) => !allowedAttributes.includes(attribute),
       );
@@ -100,9 +93,10 @@ export class PostgresAccountsRepository {
         });
       }
 
-      accountToUpdate.account_number = updateData.account_number;
+      accountToUpdate.account_id = updateData.account_id; // Atualização do account_id aqui
 
-      return this.accountRepository.save(accountToUpdate);
+      await this.accountRepository.save(accountToUpdate);
+      return accountToUpdate;
     } catch (error) {
       return makeError({
         message: error.message,
@@ -112,38 +106,13 @@ export class PostgresAccountsRepository {
     }
   }
 
-  async findById(data: { id: string }): Promise<HttpErrorResponse | Account> {
-    try {
-      const { id } = data;
-      const account = await this.accountRepository.findOne({
-        where: { id },
-      });
-
-      if (!account) {
-        return makeError({
-          message: 'Account not found',
-          status: HttpStatus.NOT_FOUND,
-          layer: ErrorLayerKind.REPOSITORY_ERROR,
-        });
-      }
-
-      return account;
-    } catch (error) {
-      return makeError({
-        message: error.message,
-        status: HttpStatus.INTERNAL_SERVER_ERROR,
-        layer: ErrorLayerKind.REPOSITORY_ERROR,
-      });
-    }
-  }
-
-  async findByAccountNumber(data: {
-    account_number: number;
+  async findByAccountId(data: {
+    account_id: number;
   }): Promise<HttpErrorResponse | Account> {
     try {
-      const { account_number } = data;
+      const { account_id } = data;
       const account = await this.accountRepository.findOne({
-        where: { account_number },
+        where: { account_id },
       });
 
       if (!account) {
@@ -165,13 +134,13 @@ export class PostgresAccountsRepository {
   }
 
   async findByCustomerId(data: {
-    customer_id: string;
+    customer_id: number;
   }): Promise<HttpErrorResponse | Account[]> {
     try {
       const { customer_id } = data;
 
       const accounts = await this.accountRepository.find({
-        where: { customer: { id: customer_id } },
+        where: { customer_id },
       });
 
       if (!accounts) {

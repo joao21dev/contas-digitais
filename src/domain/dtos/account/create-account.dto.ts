@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class UpdateAccountDto {
+export class CreateAccountDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  account_id: number;
+  customer_id: number;
 }

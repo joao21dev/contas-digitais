@@ -1,5 +1,5 @@
+import { CreateAccountDto } from '@domain/dtos/account/create-account.dto';
 import { HttpErrorResponse } from 'src/common/interfaces/http-error-response.interface';
-import { CreateAccountDto } from 'src/domain/dtos/account/cerate-account.dto';
 import { UpdateAccountDto } from 'src/domain/dtos/account/update-account.dto';
 import { Account } from 'src/domain/entities/account.entity';
 
@@ -7,13 +7,12 @@ export abstract class AccountsRepository {
   abstract create(data: CreateAccountDto): Promise<Account> | HttpErrorResponse;
   abstract update(data: {
     data: UpdateAccountDto;
-    id: string;
+    account_id: number;
   }): Promise<Account> | HttpErrorResponse;
-  abstract findById(data: { id: string }): Promise<Account> | HttpErrorResponse;
-  abstract findByAccountNumber(data: {
-    account_number: number;
+  abstract findByAccountId(data: {
+    account_id: number;
   }): Promise<Account> | HttpErrorResponse;
   abstract findByCustomerId(data: {
-    customer_id: string;
+    customer_id: number;
   }): Promise<Account[]> | HttpErrorResponse;
 }

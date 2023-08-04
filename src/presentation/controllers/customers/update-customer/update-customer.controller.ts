@@ -20,7 +20,7 @@ export class UpdateCustomerController {
   @ApiOkResponse({ description: 'Cliente atualizado com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
   async execute(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
     try {

@@ -1,23 +1,29 @@
-import { Entity, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
-import { Base } from './base.entity';
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 import { Customer } from './customer.entity';
 import { Transaction } from './transaction.entity';
 
 @Entity()
-export class Account extends Base {
-  @Column({ unique: true })
-  account_number: number;
+export class Account {
+  @PrimaryColumn()
+  account_id: number;
+
+  @Column()
+  customer_id: number;
+
+  @Column('decimal', { precision: 10, scale: 2 })
+  balance: number;
 
   @ManyToOne(() => Customer, (customer) => customer.accounts)
   @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 
-  @Column()
-  balance: number;
-
-  @OneToMany(
-    () => Transaction,
-    (transaction) => transaction.destination_account,
-  )
+  @OneToMany(() => Transaction, (transaction) => transaction.account)
   transactions: Transaction[];
 }

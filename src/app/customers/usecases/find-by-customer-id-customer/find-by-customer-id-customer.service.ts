@@ -4,13 +4,13 @@ import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 
 @Injectable()
-export class FindByIdCustomerService {
+export class FindByCustomerIdCustomerService {
   constructor(private readonly customersRepository: CustomersRepository) {}
 
-  async execute(id: string) {
+  async execute(customer_id: number) {
     try {
-      const customer = await this.customersRepository.findById({
-        id,
+      const customer = await this.customersRepository.findByCustomerId({
+        customer_id,
       });
 
       return { customer };

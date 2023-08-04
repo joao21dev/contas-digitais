@@ -21,13 +21,13 @@ export class UpdateAccountController {
   @ApiOkResponse({ description: 'Conta atualizada com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
   async execute(
-    @Param('id') id: string,
+    @Param('account_id') account_id: number,
     @Body() updateAccountDto: UpdateAccountDto,
   ) {
     try {
       const result = await this.updateAccountService.execute(
         updateAccountDto,
-        id,
+        account_id,
       );
 
       return result;

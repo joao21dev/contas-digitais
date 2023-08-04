@@ -7,7 +7,7 @@ import { AccountsRepository } from '../../repositories/account.repository';
 export class FindByCustomerIdAccountsService {
   constructor(private readonly accountsRepository: AccountsRepository) {}
 
-  async execute(customer_id: string) {
+  async execute(customer_id: number) {
     try {
       const accounts = await this.accountsRepository.findByCustomerId({
         customer_id,
