@@ -85,7 +85,7 @@ export class PostgresAccountsRepository {
 
       if (invalidAttributes.length > 0) {
         return makeError({
-          message: `Somente o account_number pode ser alterado. Atributos invalidos: ${invalidAttributes.join(
+          message: `Somente o account_id pode ser alterado. Atributos invalidos: ${invalidAttributes.join(
             ', ',
           )}`,
           status: HttpStatus.BAD_REQUEST,

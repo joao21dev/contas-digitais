@@ -4,16 +4,14 @@ import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 
 @Injectable()
-export class FindByAccountNumberTansactionsService {
+export class FindByAccountIdTansactionsService {
   constructor(private readonly transactionRepository: TransactionRepository) {}
 
-  async execute(account_number: number) {
+  async execute(account_id: number) {
     try {
-      const transactions = await this.transactionRepository.findByAccountNumber(
-        {
-          account_number,
-        },
-      );
+      const transactions = await this.transactionRepository.findByAccountId({
+        account_id,
+      });
 
       return { transactions };
     } catch (error) {

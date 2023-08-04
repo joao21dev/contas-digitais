@@ -1,3 +1,4 @@
+import { FindByAccountIdTansactionsService } from '@app/transaction/usecases/find-by-account-id-transactions/find-by-account-id-transactions.service';
 import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -5,25 +6,24 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { FindByAccountNumberTansactionsService } from '@app/transaction/usecases/find-by-account-number-transactions/find-by-account-number-transactions.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 
 @ApiTags('transacoes')
 @Controller('transacoes')
-export class FindByAccountNumberTransactionsController {
+export class FindByAccountIdTransactionsController {
   constructor(
-    private readonly findByAccountNumberTansactionsService: FindByAccountNumberTansactionsService,
+    private readonly findByAccountIdTansactionsService: FindByAccountIdTansactionsService,
   ) {}
 
-  @Get('numero-conta/:account_number')
-  @ApiOperation({ summary: 'Buscar transações por número de conta' })
+  @Get('account-id/:account_id')
+  @ApiOperation({ summary: 'Buscar transações pelo account_id' })
   @ApiOkResponse({ description: 'Transações encontradas com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
-  async execute(@Param('account_number') account_number: number) {
+  async execute(@Param('account_id') account_id: number) {
     try {
-      const result = await this.findByAccountNumberTansactionsService.execute(
-        account_number,
+      const result = await this.findByAccountIdTansactionsService.execute(
+        account_id,
       );
 
       return result;

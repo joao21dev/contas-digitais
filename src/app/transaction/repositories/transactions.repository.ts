@@ -9,7 +9,7 @@ export abstract class TransactionRepository {
   abstract findById(data: {
     id: number;
   }): Promise<Transaction> | HttpErrorResponse;
-  abstract findByAccountNumber(data: {
-    account_number: number;
+  abstract findByAccountId(data: {
+    account_id: number;
   }): Promise<Transaction[]> | HttpErrorResponse;
 }

@@ -38,7 +38,6 @@ export class PostgresTransactionsRepository {
         });
       }
 
-      // Crie uma nova instância da entidade Transaction e atribua o valor do account_id
       const newTransaction = new Transaction();
       newTransaction.transaction_id = this.generateRandomAccountNumber();
       newTransaction.account_id = account_id;
@@ -109,15 +108,18 @@ export class PostgresTransactionsRepository {
     }
   }
 
-  async findByAccountNumber(data: { account_number: number }): Promise<any> {
+  async findByAccountId(data: { account_id: number }): Promise<any> {
     try {
-      const { account_number } = data;
-      // const transactions = await this.transactionRepository.find({
-      //   relations: ['account'],
-      //   where: { account: { account_number } },
-      // });
+      const { account_id } = data;
+      const transactions = await this.transactionRepository.find({
+        where: { account: { account_id } },
+      });
+      console.log(
+        '🚀 ~ file: transactions.repository.ts:117 ~ PostgresTransactionsRepository ~ findByAccountId ~ transactions:',
+        transactions,
+      );
 
-      return 'teste';
+      return transactions;
     } catch (error) {
       return makeError({
         message: error.message,
