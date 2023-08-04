@@ -8,7 +8,7 @@ import { TransactionRepository } from '../../repositories/transactions.repositor
 export class FindByIdTransactionService {
   constructor(private readonly transactionRepository: TransactionRepository) {}
 
-  async execute(id: string) {
+  async execute(id: number) {
     try {
       const transaction = await this.transactionRepository.findById({
         id,

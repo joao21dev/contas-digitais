@@ -1,29 +1,29 @@
+import { FindByAccountIdAccountService } from '@app/accounts/usecases/find-by-account-id-account/find-by-account-id-account.service';
 import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiCreatedResponse,
+  ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { FindByAccountNumberAccountService } from 'src/app/accounts/usecases/find-by-account-number-account/find-by-account-number-account.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 
 @ApiTags('contas')
 @Controller('contas')
-export class FindByAccountNumberAccountController {
+export class FindByAccountIdAccountController {
   constructor(
-    private readonly findByAccountNumberAccountService: FindByAccountNumberAccountService,
+    private readonly findByAccountIdAccountService: FindByAccountIdAccountService,
   ) {}
 
-  @Get(':account_number')
-  @ApiOperation({ summary: 'Buscar uma conta pelo número da conta' })
-  @ApiCreatedResponse({ description: 'Conta encontrada com sucesso' })
+  @Get(':account_id')
+  @ApiOperation({ summary: 'Buscar uma conta pelo account_id' })
+  @ApiOkResponse({ description: 'Conta encontrada com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
-  async execute(@Param('account_number') account_number: number) {
+  async execute(@Param('account_id') account_id: number) {
     try {
-      const result = await this.findByAccountNumberAccountService.execute(
-        account_number,
+      const result = await this.findByAccountIdAccountService.execute(
+        account_id,
       );
 
       return result;

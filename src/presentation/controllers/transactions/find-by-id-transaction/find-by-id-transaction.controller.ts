@@ -20,7 +20,7 @@ export class FindByIdTransactionController {
   @ApiOperation({ summary: 'Buscar uma transação por id' })
   @ApiCreatedResponse({ description: 'Transação encontrada com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
-  async execute(@Param('id') id: string) {
+  async execute(@Param('id') id: number) {
     try {
       const result = await this.findByIdTransactionService.execute(id);
 

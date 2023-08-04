@@ -8,11 +8,11 @@ import { AccountsRepository } from '../../repositories/account.repository';
 export class UpdateAccountService {
   constructor(private readonly accountsRepository: AccountsRepository) {}
 
-  async execute(data: UpdateAccountDto, id: string) {
+  async execute(data: UpdateAccountDto, account_id: number) {
     try {
       const account = await this.accountsRepository.update({
         data,
-        id,
+        account_id,
       });
       return { account };
     } catch (error) {

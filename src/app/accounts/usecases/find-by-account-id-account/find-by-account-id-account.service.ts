@@ -4,13 +4,13 @@ import { makeError } from 'src/common/functions/make-error';
 import { AccountsRepository } from '../../repositories/account.repository';
 
 @Injectable()
-export class FindByAccountNumberAccountService {
+export class FindByAccountIdAccountService {
   constructor(private readonly accountsRepository: AccountsRepository) {}
 
-  async execute(account_number: number) {
+  async execute(account_id: number) {
     try {
-      const account = await this.accountsRepository.findByAccountNumber({
-        account_number,
+      const account = await this.accountsRepository.findByAccountId({
+        account_id,
       });
 
       return { account };

@@ -8,11 +8,11 @@ import { UpdateCustomerDto } from 'src/domain/dtos/customers/update-customer.dto
 export class UpdateCustomerService {
   constructor(private readonly customersRepository: CustomersRepository) {}
 
-  async execute(data: UpdateCustomerDto, id: string) {
+  async execute(data: UpdateCustomerDto, customer_id: number) {
     try {
       const customer = await this.customersRepository.update({
         data,
-        id,
+        customer_id,
       });
       return { customer };
     } catch (error) {

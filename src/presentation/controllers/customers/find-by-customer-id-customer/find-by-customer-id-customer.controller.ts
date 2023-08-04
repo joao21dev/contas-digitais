@@ -1,3 +1,4 @@
+import { FindByCustomerIdCustomerService } from '@app/customers/usecases/find-by-customer-id-customer/find-by-customer-id-customer.service';
 import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -5,24 +6,25 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { FindByIdCustomerService } from 'src/app/customers/usecases/find-by-id-customer/find-by-id-customer.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
 
 @ApiTags('clientes')
 @Controller('clientes')
-export class FindByIdCustomerController {
+export class FindByCustomerIdCustomerController {
   constructor(
-    private readonly findByIdCustomerService: FindByIdCustomerService,
+    private readonly findByCustomerIdCustomerService: FindByCustomerIdCustomerService,
   ) {}
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Buscar um cliente pelo id' })
+  @Get(':customer_id')
+  @ApiOperation({ summary: 'Buscar um cliente pelo customer_id' })
   @ApiOkResponse({ description: 'Cliente encontrado com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
-  async execute(@Param('id') id: string) {
+  async execute(@Param('customer_id') customer_id: number) {
     try {
-      const result = await this.findByIdCustomerService.execute(id);
+      const result = await this.findByCustomerIdCustomerService.execute(
+        customer_id,
+      );
 
       return result;
     } catch (error) {

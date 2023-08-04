@@ -43,12 +43,12 @@ export class PostgresCustomersRepository {
 
   async update(data: {
     data: UpdateCustomerDto;
-    id: string;
+    customer_id: number;
   }): Promise<Customer | HttpErrorResponse> {
     try {
-      const { id, data: updateData } = data;
+      const { customer_id, data: updateData } = data;
       const customerToUpdate = await this.customerRepository.findOne({
-        where: { id },
+        where: { customer_id },
       });
 
       if (!customerToUpdate) {
@@ -70,11 +70,14 @@ export class PostgresCustomersRepository {
     }
   }
 
-  async findById(data: { id: string }): Promise<Customer | HttpErrorResponse> {
+  async findByCustomerId(data: {
+    customer_id: number;
+  }): Promise<Customer | HttpErrorResponse> {
     try {
-      const { id } = data;
+      const { customer_id } = data;
+
       const customer = await this.customerRepository.findOne({
-        where: { id },
+        where: { customer_id },
       });
 
       if (!customer) {

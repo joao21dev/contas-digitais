@@ -1,3 +1,4 @@
+import { CreateAccountDto } from '@domain/dtos/account/create-account.dto';
 import { Controller, Post, Body, HttpStatus } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -8,7 +9,6 @@ import {
 import { CreateAccountService } from 'src/app/accounts/usecases/create-account/create-account.service';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
-import { CreateAccountDto } from 'src/domain/dtos/account/cerate-account.dto';
 
 @ApiTags('contas')
 @Controller('contas')

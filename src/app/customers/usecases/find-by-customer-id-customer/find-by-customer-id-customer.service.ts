@@ -1,19 +1,19 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
+import { CustomersRepository } from '../../repositories/customers.repository';
 import { ErrorLayerKind } from 'src/common/enums/error-layer.enum';
 import { makeError } from 'src/common/functions/make-error';
-import { AccountsRepository } from '../../repositories/account.repository';
 
 @Injectable()
-export class FindByIdAccountService {
-  constructor(private readonly accountsRepository: AccountsRepository) {}
+export class FindByCustomerIdCustomerService {
+  constructor(private readonly customersRepository: CustomersRepository) {}
 
-  async execute(id: string) {
+  async execute(customer_id: number) {
     try {
-      const account = await this.accountsRepository.findById({
-        id,
+      const customer = await this.customersRepository.findByCustomerId({
+        customer_id,
       });
 
-      return { account };
+      return { customer };
     } catch (error) {
       return makeError({
         message: error.message,

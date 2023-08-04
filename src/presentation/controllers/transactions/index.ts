@@ -1,9 +1,9 @@
-import { FindByAccountNumberAccountController } from '../accounts/find-by-account-number-account/find-by-account-number-account.controller';
-import { FindByIdAccountController } from '../accounts/find-by-id-account/find-by-id-account.controller';
+import { FindByAccountIdAccountController } from '../accounts/find-by-account-id-account/find-by-account-id-account.controller';
 import { CreateTransactionController } from './create-transaction/create-transaction.controller';
+import { FindByAccountIdTransactionsController } from './find-by-account-id-transaction/find-by-account-id-transaction.controller';
 
 export default [
   CreateTransactionController,
-  FindByAccountNumberAccountController,
-  FindByIdAccountController,
+  FindByAccountIdAccountController,
+  FindByAccountIdTransactionsController,
 ];

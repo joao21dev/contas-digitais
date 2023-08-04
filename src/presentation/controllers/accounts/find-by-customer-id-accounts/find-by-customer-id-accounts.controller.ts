@@ -20,7 +20,7 @@ export class FindByCustomerIdAccountController {
   @ApiOperation({ summary: 'Buscar contas por id do cliente' })
   @ApiOkResponse({ description: 'Contas encontradas com sucesso' })
   @ApiBadRequestResponse({ description: 'Erro na validação dos dados' })
-  async execute(@Param('customer_id') customer_id: string) {
+  async execute(@Param('customer_id') customer_id: number) {
     try {
       const result = await this.findByCustomerIdAccountsService.execute(
         customer_id,
