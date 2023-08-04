@@ -7,7 +7,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import databaseConfig from './config/database.config';
 import { PostgresAccountsRepository } from './postgres/accounts.repository';
 import { PostgresTransactionsRepository } from './postgres/transactions.repository';
-import { DatabaseProvider } from './providers/database.provider';
 import { PostgresCustomersRepository } from './postgres/customers.repository';
 
 @Module({
@@ -20,7 +19,6 @@ import { PostgresCustomersRepository } from './postgres/customers.repository';
     TypeOrmModule.forFeature([...entities]),
   ],
   providers: [
-    DatabaseProvider,
     {
       provide: CustomersRepository,
       useClass: PostgresCustomersRepository,
