@@ -28,7 +28,7 @@ Para este projeto, serão entregues os seguintes artefatos:
 - Diagrama Entidade-Relacionamento (DER) e Modelo Entidade-Relacionamento (MER). Se encontra em `src/infra/database/database.diagram.drawio`. Para vizualisá-lo dentro do projeto, é necessário uma extensão que leia arquivos draw.io.
   <a href="https://ibb.co/BLMCLD8"><img src="https://i.ibb.co/JnJsnLX/entities-diagram.png" alt="entities-diagram" border="0"></a>
 
-- Scripts DDL (Data Definition Language) e DML (Data Manipulation Language) que stão localizados nos seguintes caminhos:
+- Scripts DDL (Data Definition Language) e DML (Data Manipulation Language) que estão localizados nos seguintes caminhos:
 - DDL: `src/infra/database/ddl.sql`
 - DML: `src/infra/database/dml.sql`
 
@@ -56,11 +56,11 @@ A API foi desenvolvida para fornecer os seguintes casos de uso:
 
 Antes de iniciar, certifique-se de que você tenha os seguintes pré-requisitos instalados:
 
-- **VS Code** [https://code.visualstudio.com/](https://code.visualstudio.com/) ou qualquer outro editor de texto
+- **VS Code** [https://code.visualstudio.com/](https://code.visualstudio.com/) ou qualquer outro editor de código
 
 - **Node.js:** [https://nodejs.org/](https://nodejs.org/)
 
-- **Docker:** [https://www.docker.com/get-started](https://www.docker.com/get-started)//
+- **Docker:** [https://www.docker.com/get-started](https://www.docker.com/get-started)
 
 - **psql:** Será usado para rodar o arquivo de scripts sql, caso não seja usado um gerenciador como o DBeaver (as credenciais estão no .env do projeto). Para instalar o psql, você pode seguir as instruções do site oficial ou usar o gerenciador de pacotes do seu sistema operacional.
 
@@ -82,7 +82,7 @@ Certifique-se de seguir as instruções de instalação apropriadas para o seu s
    ```js
    docker compose up
    ```
-4. Abra outra janela do terminal no mesmo diretório e crie as tabelas do banco (password: admin). Aqui é necessário ter o psql, caso utilize um gerenciador, basta usar as credenciais que estão no .env e coalr o script ddl localizado em src/infra/database/ddl.sql`.
+4. Abra outra janela do terminal no mesmo diretório e crie as tabelas do banco (password: admin). Aqui é necessário ter o psql, caso utilize um gerenciador, basta usar as credenciais que estão no .env e colar o script ddl localizado em src/infra/database/ddl.sql`.
    ```js
    npm run create-tables
    ```
