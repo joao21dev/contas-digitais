@@ -1,74 +1,100 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Pojeto Contas Digitais
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Sobre o projeto
+O objetivo deste projeto foi desenvolver um novo sistema de contas digitais, desde a análise de requisitos e levantamento dos casos de uso, modelagem do banco de dados relacional e desenvolvimento da API.
 
-## Description
+### Funcionalidades
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+O sistema incluirá as seguintes funcionalidades:
 
-## Installation
+- Cadastro e atualização de clientes e contas
+- Consulta de informações de contas e clientes
+- Registro de transações (depósitos e saques)
+- Consulta de histórico de transações de uma conta
 
-```bash
-$ npm install
-```
+### Banco de Dados
 
-## Running the app
+O sistema é baseado em um banco de dados relacional (PostgreSQL) que armazenará os seguintes tipos de informações:
 
-```bash
-# development
-$ npm run start
+- Dados do cliente a partir da tabela Customer
+- Dados da conta a partir da tabela Account
+- Dados da transação (depósitos e saques) a partir da tabela Transaction
 
-# watch mode
-$ npm run start:dev
+### Artefatos
 
-# production mode
-$ npm run start:prod
-```
+Para este projeto, serão entregues os seguintes artefatos:
 
-## Test
+- Diagrama Entidade-Relacionamento (DER) e Modelo Entidade-Relacionamento (MER)
+  <a href="https://ibb.co/BLMCLD8"><img src="https://i.ibb.co/JnJsnLX/entities-diagram.png" alt="entities-diagram" border="0"></a>
 
-```bash
-# unit tests
-$ npm run test
+- Scripts DDL (Data Definition Language) e DML (Data Manipulation Language) que stão localizados nos seguintes caminhos:
+- DDL: `src/infra/database/ddl.sql`
+- DML: `src/infra/database/dml.sql`
 
-# e2e tests
-$ npm run test:e2e
+### API
 
-# test coverage
-$ npm run test:cov
-```
+A API foi desenvolvida para fornecer os seguintes casos de uso:
 
-## Support
+- Cadastrar clientes e criar contas utilizando uma chave estrangeira para referenciar o cliente. Atualizar dados das contas e dos clientes. Consultar Contas pertencentes a um determinado cliente. Cadastrar transações de saque ou depósito utilizando uma chave estrangeira para referencia a conta que fez determinada transação. Consultar lista de transações efetuadas a partir de uma determinada conta.
+  
+- A documentação dos endpoints pode ser acessada em `localhost:3333/api`
+  
+- A API foi desenvolvida seguindo os princípios da Arquitetura Limpa, que enfatiza a separação de responsabilidades em camadas distintas. A estrutura adotada inclui a camada de Domínio, onde as regras de negócios e entidades são definidas; a camada de Casos de Uso, que contém a lógica específica da aplicação;  e a camada de Infraestrutura, cuidando de aspectos técnicos como banco de dados. A Inversão de Dependência foi empregada, assegurando que camadas superiores dependam de abstrações e não de detalhes de implementação, aumentando o desacoplamento e a testabilidade (futura, pois não deu tempo de escrever os testes dos casos de uso). A utilização do NestJS e TypeScript fortaleceu essa arquitetura, resultando em uma API modular, de fácil manutenção e escalável. As ferramentas empregadas, como o TypeORM para a persistência de dados e o  Swagger para documentação.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+### Principais tecnologias utilizadas:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **Docker:** Uma plataforma de contêiner que facilita o empacotamento e implantação da aplicação e suas dependências. Foi utilizado para rodar o banco de dados.
+- **NestJS:** Um framework que possibilita a criação de APIs eficientes e escaláveis.
+- **TypeScript:** Uma linguagem que oferece tipagem estática e recursos de programação orientada a objetos.
+- **TypeORM:** Um ORM que viabiliza a manipulação de bancos de dados utilizando classes e objetos TypeScript.
+- **PostgreSQL:** Um sistema de gerenciamento de banco de dados relacional utilizado para armazenar e recuperar informações de forma eficiente.
+- **Swagger:** Usado para gerar documentação automática da API conforme o padrão Swagger/OpenAPI.
 
-## License
 
-Nest is [MIT licensed](LICENSE).
-# contas-digitais
+## Instalação do projeto
+
+### Pré-requisitos
+
+Antes de iniciar, certifique-se de que você tenha os seguintes pré-requisitos instalados:
+
+- **Node.js:** [https://nodejs.org/](https://nodejs.org/)
+
+- **Docker:** [https://www.docker.com/get-started](https://www.docker.com/get-started)//
+
+- **psql:** Será usado para rodar o arquivo de scripts sql, caso não seja usado um gerenciador como o DBeaver (as credenciais estão no .env do projeto). Para instalar o psql, você pode seguir as instruções do site oficial ou usar o gerenciador de pacotes do seu sistema operacional.
+
+- **Git:** [https://git-scm.com/downloads](https://git-scm.com/downloads)
+
+Certifique-se de seguir as instruções de instalação apropriadas para o seu sistema operacional.
+
+### Execução do projeto
+
+1. Clone o repositório
+   ```sh
+   git clone git@github.com:joao21dev/contas-digitais.git
+   ```
+3. Acesse o diretório raiz
+   ```sh
+   cd contas-digitais
+   ```
+4. Rode o container docker com o banco de dados (porta padrão 5432)
+   ```js
+   docker compose up
+   ```
+5. Abra outra janela do terminal no mesmo diretório e crie as tabelas do banco (password: admin). Aqui é necessário ter o psql, caso utilize um gerenciador, basta usar as credenciais que estão no .env e coalr o script ddl localizado em src/infra/database/ddl.sql`.
+   ```js
+   npm run create-tables               
+   ```
+6. Instale as dependências do projeto
+   ```js
+   npm install
+   ```
+6. Rode o projeto (porta 3333)
+   ```js
+   npm run start:dev
+   ```
+7. Abra a documentação dos endpoints em`localhost:3333/api`
+
+
