@@ -19,7 +19,7 @@ export class PostgresAccountsRepository {
   ) {}
 
   private generateRandomAccountNumber(): number {
-    return Math.floor(10000 + Math.random() * 90000); // Random 5-digit number
+    return Math.floor(10000 + Math.random() * 90000);
   }
 
   async create(data: CreateAccountDto): Promise<HttpErrorResponse | Account> {
@@ -139,25 +139,30 @@ export class PostgresAccountsRepository {
     }
   }
 
-  async findByCustomerId(data: {
-    customer_id: number;
-  }): Promise<HttpErrorResponse | Account[]> {
+  async findByCustomerId(data: { customer_id: number }): Promise<any> {
     try {
       const { customer_id } = data;
-
       const accounts = await this.accountRepository.find({
         where: { customer_id },
       });
 
+      const customer_info = await this.customerRepository.findOne({
+        where: { customer_id },
+        select: ['name', 'document'],
+      });
+
       if (!accounts) {
         return makeError({
-          message: 'Account not found',
+          message: 'Accounts not found',
           status: HttpStatus.NOT_FOUND,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
       }
 
-      return accounts;
+      return {
+        customer_info,
+        accounts,
+      };
     } catch (error) {
       return makeError({
         message: error.message,
