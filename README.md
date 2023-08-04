@@ -41,11 +41,19 @@ A API foi desenvolvida para fornecer os seguintes casos de uso:
 - Cadastrar clientes e criar contas utilizando uma chave estrangeira para referenciar o cliente. Atualizar dados das contas e dos clientes. Consultar Contas pertencentes a um determinado cliente. Cadastrar transações de saque ou depósito utilizando uma chave estrangeira para referencia a conta que fez determinada transação. Consultar lista de transações efetuadas a partir de uma determinada conta.
 - A API foi desenvolvida seguindo os princípios da Arquitetura Limpa, que enfatiza a separação de responsabilidades em camadas distintas. A estrutura adotada inclui a camada de Domínio, onde as regras de negócios e entidades são definidas; a camada de Casos de Uso (App), que contém a lógica específica da aplicação; a camada de Infraestrutura, cuidando de aspectos técnicos como banco de dados; a camada Presentation responsável por gerenciar a interação com o usuário através dos controllers. A Inversão de Dependência foi empregada, assegurando que camadas superiores dependam de abstrações e não de detalhes de implementação, aumentando o desacoplamento e a testabilidade (futura, pois não deu tempo de escrever os testes dos casos de uso). A utilização do NestJS e TypeScript fortaleceu essa arquitetura, resultando em uma API modular, de fácil manutenção e escalável. As ferramentas empregadas, como o TypeORM para a persistência de dados e o Swagger para documentação.
 
+### Testes
+
+A aplicação foi desenvolvida com foco em testes, seguindo os princípios da Arquitetura Limpa, que facilita a cobertura total dos casos de uso graças ao seu desacoplamento do resto da aplicação. A Inversão de Dependência é crucial, permitindo substituir dependências por mocks nos testes. O cenário ideal  seria a criação de um repositório em memória (não sendo atingido na presente data pelo vencimento do prazo de entrega do projeto), possibilitando testes rápidos e consistentes, independentes do banco de dados real.
+
+<a href="https://ibb.co/F5bbKDn"><img src="https://i.ibb.co/rxGGmwv/testsCov.png" alt="testsCov" border="0"></a>
+
+
 ### Principais tecnologias utilizadas:
 
 - **Docker:** Uma plataforma de contêiner que facilita o empacotamento e implantação da aplicação e suas dependências. Foi utilizado para rodar o banco de dados.
 - **NestJS:** Um framework que possibilita a criação de APIs eficientes e escaláveis.
 - **TypeScript:** Uma linguagem que oferece tipagem estática e recursos de programação orientada a objetos.
+- **Jest:** Uma biblioteca de testes em JavaScript/TypeScript que auxilia na criação de testes automatizados para a aplicação.
 - **TypeORM:** Um ORM que viabiliza a manipulação de bancos de dados utilizando classes e objetos TypeScript.
 - **PostgreSQL:** Um sistema de gerenciamento de banco de dados relacional utilizado para armazenar e recuperar informações de forma eficiente.
 - **Swagger:** Usado para gerar documentação automática da API conforme o padrão Swagger/OpenAPI.
