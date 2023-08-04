@@ -20,7 +20,7 @@ export class PostgresTransactionsRepository {
   ) {}
 
   private generateRandomAccountNumber(): number {
-    return Math.floor(1000000 + Math.random() * 9000000); // Random 5-digit number
+    return Math.floor(1000000 + Math.random() * 9000000);
   }
 
   async create(
@@ -36,7 +36,7 @@ export class PostgresTransactionsRepository {
 
       if (!destinationAccount) {
         return makeError({
-          message: 'Destination account not found',
+          message: 'Conta de destino não encontrada',
           status: HttpStatus.INTERNAL_SERVER_ERROR,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
@@ -61,7 +61,8 @@ export class PostgresTransactionsRepository {
         destinationAccount.balance += data.amount;
       } else {
         return makeError({
-          message: "Insiira uma transação válida: 'withdraw' ou 'deposit'",
+          message:
+            "Insiira uma transação válida: 'withdraw' para saque ou 'deposit' para depósitos",
           status: HttpStatus.INTERNAL_SERVER_ERROR,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
@@ -80,14 +81,18 @@ export class PostgresTransactionsRepository {
     }
   }
 
-  async findById(data: { id: number }): Promise<any> {
+  async findById(data: {
+    id: number;
+  }): Promise<HttpErrorResponse | Transaction> {
     try {
       const { id } = data;
-      const transaction = await this.transactionRepository.findOne({});
+      const transaction = await this.transactionRepository.findOne({
+        where: { transaction_id: id },
+      });
 
       if (!transaction) {
         return makeError({
-          message: 'Transaction not found',
+          message: 'Transação não encontrada',
           status: HttpStatus.NOT_FOUND,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
@@ -112,7 +117,7 @@ export class PostgresTransactionsRepository {
 
       if (!transactions) {
         return makeError({
-          message: 'Transactions not found',
+          message: 'Nenhuma transação encontrada',
           status: HttpStatus.NOT_FOUND,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });

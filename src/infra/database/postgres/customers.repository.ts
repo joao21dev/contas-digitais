@@ -53,7 +53,7 @@ export class PostgresCustomersRepository {
 
       if (!customerToUpdate) {
         return makeError({
-          message: 'Customer not found',
+          message: 'Cleinte não encontrado',
           status: HttpStatus.NOT_FOUND,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
@@ -82,7 +82,7 @@ export class PostgresCustomersRepository {
 
       if (!customer) {
         return makeError({
-          message: 'Customer not found',
+          message: 'Cliente não encontrado',
           status: HttpStatus.NOT_FOUND,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });

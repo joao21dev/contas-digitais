@@ -7,10 +7,9 @@ export class CreateTransactionDto {
   @IsNotEmpty()
   account_id: number;
 
-  @ApiProperty()
-  @IsString()
+  @ApiProperty({ example: 'deposit' })
   @IsNotEmpty()
-  transaction_type: 'deposit' | 'withdraw';
+  transaction_type: string;
 
   @ApiProperty()
   @IsNumber()

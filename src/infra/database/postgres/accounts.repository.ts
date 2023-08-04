@@ -32,7 +32,7 @@ export class PostgresAccountsRepository {
 
       if (!customer) {
         return makeError({
-          message: 'Customer not found',
+          message: 'Cliente não encontrado',
           status: HttpStatus.NOT_FOUND,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
@@ -64,7 +64,7 @@ export class PostgresAccountsRepository {
     account_id: number;
   }): Promise<HttpErrorResponse | Account> {
     try {
-      const { account_id, data: updateData } = data; // Ajuste na desestruturação aqui
+      const { account_id, data: updateData } = data;
 
       const accountToUpdate = await this.accountRepository.findOne({
         where: { account_id },
@@ -72,7 +72,7 @@ export class PostgresAccountsRepository {
 
       if (!accountToUpdate) {
         return makeError({
-          message: 'Account not found',
+          message: 'Conta não encontrada',
           status: HttpStatus.NOT_FOUND,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
@@ -116,7 +116,7 @@ export class PostgresAccountsRepository {
 
       if (!account) {
         return makeError({
-          message: 'Account not found',
+          message: 'Conta não encontrada',
           status: HttpStatus.NOT_FOUND,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
@@ -153,7 +153,7 @@ export class PostgresAccountsRepository {
 
       if (!accounts) {
         return makeError({
-          message: 'Accounts not found',
+          message: 'Nenhuma conta encontrada',
           status: HttpStatus.NOT_FOUND,
           layer: ErrorLayerKind.REPOSITORY_ERROR,
         });
