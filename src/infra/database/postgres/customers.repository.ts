@@ -1,13 +1,12 @@
-import { CreateCustomerDto } from 'src/domain/dtos/customers/create-customer.dto';
-import { UpdateCustomerDto } from 'src/domain/dtos/customers/update-customer.dto';
-import { Customer } from 'src/domain/entities/customer.entity';
-import { HttpStatus } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { ErrorLayerKind } from '@common/enums/error-layer.enum';
 import { makeError } from '@common/functions/make-error';
 import { HttpErrorResponse } from '@common/interfaces/http-error-response.interface';
+import { CreateCustomerDto } from '@domain/dtos/customers/create-customer.dto';
+import { UpdateCustomerDto } from '@domain/dtos/customers/update-customer.dto';
+import { Customer } from '@domain/entities/customer.entity';
+import { Injectable, HttpStatus } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PostgresCustomersRepository {

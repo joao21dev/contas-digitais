@@ -1,5 +1,5 @@
-import { CreateTransactionDto } from 'src/domain/dtos/transactions/create-transaction.dto';
-import { Transaction } from 'src/domain/entities/transaction.entity';
+import { CreateTransactionDto } from '@domain/dtos/transactions/create-transaction.dto';
+import { Transaction } from '@domain/entities/transaction.entity';
 import { HttpStatus } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';

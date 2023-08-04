@@ -62,7 +62,10 @@ Antes de iniciar, certifique-se de que você tenha os seguintes pré-requisitos 
 
 - **Docker:** [https://www.docker.com/get-started](https://www.docker.com/get-started)
 
-- **psql:** Será usado para rodar o arquivo de scripts sql, caso não seja usado um gerenciador como o DBeaver (as credenciais estão no .env do projeto). Para instalar o psql, você pode seguir as instruções do site oficial ou usar o gerenciador de pacotes do seu sistema operacional.
+- **psql:** Será usado para rodar o arquivo de scripts sql, caso não seja usado um gerenciador como o DBeaver (as credenciais estão no .env do projeto). Para instalar o psql, você pode seguir as instruções do site oficial ou usar o gerenciador de pacotes do seu sistema operacional. No linux:
+```sh
+   sudo apt install postgresql-client
+   ```
 
 - **Git:** [https://git-scm.com/downloads](https://git-scm.com/downloads)
 
@@ -80,7 +83,7 @@ Certifique-se de seguir as instruções de instalação apropriadas para o seu s
    ```
 3. Rode o container docker com o banco de dados (porta padrão 5432)
    ```js
-   docker compose up
+   sudo docker compose up
    ```
 4. Abra outra janela do terminal no mesmo diretório e crie as tabelas do banco (password: admin). Aqui é necessário ter o psql, caso utilize um gerenciador, basta usar as credenciais que estão no .env e colar o script ddl localizado em src/infra/database/ddl.sql`.
    ```js

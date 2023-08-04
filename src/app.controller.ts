@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiResponse } from '@nestjs/swagger';
 
-@ApiTags('App') // Define a tag para o controlador de aplicativo
+@ApiTags('App')
 @Controller()
 export class AppController {
   @Get()
@@ -15,6 +15,6 @@ export class AppController {
     type: String,
   })
   getHello(): string {
-    return 'Hello World';
+    return 'Hello World!';
   }
 }

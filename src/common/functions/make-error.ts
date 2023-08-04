@@ -1,5 +1,5 @@
+import { ErrorLayerKind } from '@common/enums/error-layer.enum';
 import { HttpStatus } from '@nestjs/common';
-import { ErrorLayerKind } from '../enums/error-layer.enum';
 
 interface MakeErrorProps {
   message: string;

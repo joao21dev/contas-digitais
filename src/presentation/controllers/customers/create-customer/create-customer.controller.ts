@@ -3,7 +3,6 @@ import { CustomerSuccessDoc } from '@common/docs/customers/customer-success.doc'
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiCreatedResponse,
   ApiOperation,
   ApiResponse,
   ApiTags,
