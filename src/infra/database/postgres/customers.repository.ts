@@ -75,10 +75,6 @@ export class PostgresCustomersRepository {
   }): Promise<Customer | HttpErrorResponse> {
     try {
       const { customer_id } = data;
-      console.log(
-        '🚀 ~ file: customers.repository.ts:78 ~ PostgresCustomersRepository ~  customer_id :',
-        customer_id,
-      );
 
       const customer = await this.customerRepository.findOne({
         where: { customer_id },

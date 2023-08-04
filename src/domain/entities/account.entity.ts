@@ -17,7 +17,7 @@ export class Account {
   @Column()
   customer_id: number;
 
-  @Column('decimal', { precision: 10, scale: 2 })
+  @Column()
   balance: number;
 
   @ManyToOne(() => Customer, (customer) => customer.accounts)

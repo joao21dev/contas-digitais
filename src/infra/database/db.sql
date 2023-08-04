@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS Customer (
 CREATE TABLE IF NOT EXISTS Account (
   account_id int PRIMARY KEY,
   customer_id int NOT NULL,
-  balance decimal(10, 2) NOT NULL,
+  balance numeric NOT NULL,
   deleted_at timestamp(6) NULL, 
   created_at timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),

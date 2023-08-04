@@ -18,6 +18,10 @@ export class PostgresTransactionsRepository {
     private readonly accountRepository: Repository<Account>,
   ) {}
 
+  private generateRandomAccountNumber(): number {
+    return Math.floor(1000000 + Math.random() * 9000000); // Random 5-digit number
+  }
+
   async create(data: CreateTransactionDto): Promise<any> {
     try {
       const { account_id, transaction_type, amount } = data;
@@ -27,14 +31,19 @@ export class PostgresTransactionsRepository {
       });
 
       if (!destinationAccount) {
-        return {
-          error: {
-            message: 'Destination account not found',
-            status: HttpStatus.BAD_REQUEST,
-            layer: 'SERVICE_ERROR',
-          },
-        };
+        return makeError({
+          message: 'Destination account not found',
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          layer: ErrorLayerKind.REPOSITORY_ERROR,
+        });
       }
+
+      // Crie uma nova instância da entidade Transaction e atribua o valor do account_id
+      const newTransaction = new Transaction();
+      newTransaction.transaction_id = this.generateRandomAccountNumber();
+      newTransaction.account_id = account_id;
+      newTransaction.transaction_type = transaction_type;
+      newTransaction.amount = amount;
 
       if (data.transaction_type === 'withdraw') {
         if (destinationAccount.balance < data.amount) {
@@ -59,26 +68,19 @@ export class PostgresTransactionsRepository {
         };
       }
 
-      // const order = this.transactionRepository.create({
-      //   account_id: destinationAccount.account_id,
-      //   type,
-      //   amount,
-      // });
-
-      // await this.transactionRepository.save(order);
-
+      await this.transactionRepository.save(newTransaction);
       await this.accountRepository.save(destinationAccount);
 
       return {
-        // order,
+        order: newTransaction,
         destinationAccount,
       };
     } catch (error) {
       return {
         error: {
-          message: 'Error creating data',
+          message: error.message,
           status: HttpStatus.INTERNAL_SERVER_ERROR,
-          layer: 'SERVICE_ERROR',
+          layer: ErrorLayerKind.REPOSITORY_ERROR,
         },
       };
     }
