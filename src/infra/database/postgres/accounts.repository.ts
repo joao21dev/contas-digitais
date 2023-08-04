@@ -106,13 +106,12 @@ export class PostgresAccountsRepository {
     }
   }
 
-  async findByAccountId(data: {
-    account_id: number;
-  }): Promise<HttpErrorResponse | Account> {
+  async findByAccountId(data: { account_id: number }): Promise<any> {
     try {
       const { account_id } = data;
       const account = await this.accountRepository.findOne({
         where: { account_id },
+        relations: ['customer'], // Carrega também o relacionamento com o customer
       });
 
       if (!account) {
@@ -123,7 +122,14 @@ export class PostgresAccountsRepository {
         });
       }
 
-      return account;
+      return {
+        account: {
+          account_id: account.account_id,
+          customer_id: account.customer_id,
+          balance: account.balance,
+          customer: account.customer,
+        },
+      };
     } catch (error) {
       return makeError({
         message: error.message,
